@@ -100,19 +100,19 @@ For this application, we can use [quickForm](https://github.com/aldeed/meteor-au
 
 With one exception, the implementation of this form in Meteor using AutoForm was quite straightforward.
 
-The exception is this: I originally hoped to replicate the form in play-example-form:
+The exception is this: I originally hoped to replicate the following form from play-example-form:
 
 ![](https://raw.githubusercontent.com/ics-software-engineering/play-example-form/master/doc/play-example-form-homepage.png)
 
-Unlike the Meteor version, this form contains [help text](http://getbootstrap.com/css/#forms-help-text).
+Unlike the Meteor version, play-example-form provides [help text](http://getbootstrap.com/css/#forms-help-text) (the grey text underneath each form control documenting how the user should respond).
 
-As far as I can tell, providing form help text in AutoForm is not possible with [quickForm component](https://github.com/aldeed/meteor-autoform#quickform), nor is it even possible with the [autoForm compoent](https://github.com/aldeed/meteor-autoform#autoform-1), which provides fine-grained control over individual fields.
+As far as I can tell, providing help text in AutoForm is not possible with [quickForm component](https://github.com/aldeed/meteor-autoform#quickform), nor is it even possible with the [autoForm component](https://github.com/aldeed/meteor-autoform#autoform-1), which provides fine-grained control over individual fields.
 
 Instead, in order to obtain this very common and highly useful UI element, you must apparently define a [theme template](https://github.com/aldeed/meteor-autoform#theme-templates), which will differ in only minor ways from the built-in one.
 
-For the novice user of AutoForm, the question at this point becomes whether it is better to fork a predefined template just to get this basic feature, or just abandon AutoForm entirely and roll your own form processor.
+For the novice user of AutoForm who requires help-text, a legitimate question becomes whether it is better to fork a predefined template and implement this feature, or just abandon AutoForm entirely and roll one's own form processor.
 
-I believe the AutoForm package significantly simplifies form development, and that it is a design oversight to require developers who merely wish to include form help text to have to dig so deeply into AutoForm internals to achieve it (and then maintain their copy of the template as Bootstrap and AutoForm evolve over time.)   A much better solution is for the AutoForm developers to include a help-text option in the Schema that can be used by the predefined templates:
+I believe the AutoForm package significantly simplifies form development, and that it is a design oversight to require developers who merely wish to include form help text to learn an advanced AutoForm mechanism to achieve it (and then manually maintain their copy of the template as Bootstrap and AutoForm evolve over time.)   A much better solution is for the AutoForm developers to include a help-text option in the Schema that can be used by the predefined templates:
 
 ```
   level: {
@@ -123,12 +123,12 @@ I believe the AutoForm package significantly simplifies form development, and th
     autoform: {
       group: studentData,
       type: 'select-radio-inline',
-      help-text: 'Indicate your year in the degree program. (Required)'
+      help-text: 'Select your grade level. (required)'
     }
   }
 ```
 
-With this simple change, users could continue to use the quickForm option.
+With this simple enhancement, users requiring help text could enjoy the simplicity of the quickForm option.
 
 
 
