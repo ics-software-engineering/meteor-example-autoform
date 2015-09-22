@@ -98,7 +98,7 @@ For this application, we can use [quickForm](https://github.com/aldeed/meteor-au
 
 Click the image below to watch a 10 minute walkthrough of this system.
 
-[<img src="https://raw.githubusercontent.com/ics-software-engineering/meteor-example-autoform/master/doc/meteor-example-autoform-youtube.png" width="400">](https://www.youtube.com/watch?v=sfTDHJVmeuU)
+[<img src="https://raw.githubusercontent.com/ics-software-engineering/meteor-example-autoform/master/doc/meteor-example-autoform-youtube.png" width="600">](https://www.youtube.com/watch?v=sfTDHJVmeuU)
 
 
 ### Issues: Form Help Text
