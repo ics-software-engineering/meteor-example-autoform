@@ -38,7 +38,7 @@ The routing code is in a single file: [lib/router/router.js](https://github.com/
 
   * A "layout" template is specified to provide boilerplate Bootstrap code, found in [client/templates/application/layout.html](https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/client/templates/application/layout.html).
 
-  * When the application is first retrieved by a client, the router will subscribe to the StudentData collection. A [loading template](https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/client/templates/application/loading.html) will be shown while the subscription runs, and this displays the spinner provided by the [sasha:spinner](https://atmospherejs.com/sacha/spin).
+  * When the application is first retrieved by a client, the router will subscribe to the StudentData collection. A [loading template](https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/client/templates/application/loading.html) will be shown while the subscription runs, and this displays the spinner provided by [sasha:spinner](https://atmospherejs.com/sacha/spin).
 
   * Two routes are defined: "/" which will display the AddStudentData template, and "/student/:_id" which will display the UpdateStudentData template.  Both templates are defined in [client/templates/studentdata/studentdata.html](https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/client/templates/studentdata/studentdata.html).
 
