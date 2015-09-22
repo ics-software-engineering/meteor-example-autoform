@@ -108,11 +108,11 @@ Unlike the Meteor version, this form contains [help text](http://getbootstrap.co
 
 As far as I can tell, providing form help text in AutoForm is not possible with [quickForm component](https://github.com/aldeed/meteor-autoform#quickform), nor is it even possible with the [autoForm compoent](https://github.com/aldeed/meteor-autoform#autoform-1), which provides fine-grained control over individual fields.
 
-Instead, in order to obtain this common and highly useful feature, you must apparently define a [theme template](https://github.com/aldeed/meteor-autoform#theme-templates), which will differ in only minor ways from the built-in one.
+Instead, in order to obtain this very common and highly useful UI element, you must apparently define a [theme template](https://github.com/aldeed/meteor-autoform#theme-templates), which will differ in only minor ways from the built-in one.
 
 For the novice user of AutoForm, the question at this point becomes whether it is better to fork a predefined template just to get this basic feature, or just abandon AutoForm entirely and roll your own form processor.
 
-I believe the AutoForm package significantly simplifies form development, and that it is a design oversight to require developers who merely wish to include form help text to have to dig so deeply into AutoForm internals to achieve it.   A much better solution is for the AutoForm developers to include a help-text option in the Schema that can be used by the predefined templates:
+I believe the AutoForm package significantly simplifies form development, and that it is a design oversight to require developers who merely wish to include form help text to have to dig so deeply into AutoForm internals to achieve it (and then maintain their copy of the template as Bootstrap and AutoForm evolve over time.)   A much better solution is for the AutoForm developers to include a help-text option in the Schema that can be used by the predefined templates:
 
 ```
   level: {
@@ -128,7 +128,7 @@ I believe the AutoForm package significantly simplifies form development, and th
   }
 ```
 
-With this simple change, users could continue to use the quickForm option. 
+With this simple change, users could continue to use the quickForm option.
 
 
 
