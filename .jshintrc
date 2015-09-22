@@ -140,15 +140,8 @@
 
     // Define Collections and Globals used in this application.
     // True because they can be manipulated globally.
-    "EditStatus"  : true,
-    "Syllabuses"  : true,
-    "ICSLearningOutcomes": true,
-    "AppController" : true,
-    "ExportJsonController" : true,
-    "ExportMarkdownController" : true,
-    "ZipZap" : true,
-    "JsonZip" : true,
-    "SyllabusZip" : true
+    "StudentData"  : true,
+    "studentData"  : true
 
   }
 }
