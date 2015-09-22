@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Meteor-example-autoform : Simple Meteor app illustrating use of Bootstrap form controls.">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Meteor-example-autoform</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/ics-software-engineering/meteor-example-autoform">View on GitHub</a>
+
+          <h1 id="project_title">Meteor-example-autoform</h1>
+          <h2 id="project_tagline">Simple Meteor app illustrating use of Bootstrap form controls.</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/ics-software-engineering/meteor-example-autoform/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/ics-software-engineering/meteor-example-autoform/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="meteor-example-autoform" class="anchor" href="#meteor-example-autoform" aria-hidden="true"><span class="octicon octicon-link"></span></a>meteor-example-autoform</h1>
+
+<p><img src="https://raw.githubusercontent.com/ics-software-engineering/meteor-example-autoform/master/doc/meteor-example-autoform.png" alt=""></p>
+
+<p>Meteor-example-autoform is a <a href="http://meteor.com">Meteor</a> application that provides a simple implementation of an HTML form using the <a href="https://github.com/aldeed/meteor-autoform">AutoForm plugin</a> along with <a href="http://getbootstrap.com/">Twitter Bootstrap</a>.</p>
+
+<p>I wrote this application to complement the AutoForm documentation and online AutoForm tutorials. Specifically, I wanted to provide example code for Radio Buttons, Checklists, and multiple selection.</p>
+
+<p>The code also uses explicit publish and subscribe and Meteor methods.  This means the insecure and autopublish packages are not enabled.</p>
+
+<p>I previously wrote a similar application called <a href="http://ics-software-engineering.github.io/play-example-form/">play-example-form</a> to illustrate form processing in the <a href="https://www.playframework.com/">Play Framework</a>. It's interesting to compare the two implementations.</p>
+
+<h2>
+<a id="basic-usage" class="anchor" href="#basic-usage" aria-hidden="true"><span class="octicon octicon-link"></span></a>Basic usage</h2>
+
+<p>Download the application and type <code>meteor</code>, then display <a href="http://localhost:3000">http://localhost:3000</a> to bring up a window similar to the above.</p>
+
+<p>The application consists of two pages: the home page that enables the form and enables you to create new StudentData documents, and a second page that allows you to edit a pre-existing StudentData document.  To use this second page, open up the browser console and submit a new StudentData instance. The form will be reset, and you should see the docID printed out to the console:</p>
+
+<p><img src="https://raw.githubusercontent.com/ics-software-engineering/meteor-example-autoform/master/doc/meteor-example-autoform-submit.png" alt=""></p>
+
+<p>Copy the docID, and then create a URL in the address bar with <code>student/&lt;docID&gt;</code>.   Retrieving that URL will display the newly created StudentData document and allow it to be edited:</p>
+
+<p><img src="https://raw.githubusercontent.com/ics-software-engineering/meteor-example-autoform/master/doc/meteor-example-autoform-student.png" alt=""></p>
+
+<p>One way to test your understanding of this code is to clone this repo and augment the application to display a table of all created StudentData instances and an "Edit" button to display the selected student on the second page.</p>
+
+<h2>
+<a id="walkthough" class="anchor" href="#walkthough" aria-hidden="true"><span class="octicon octicon-link"></span></a>Walkthough</h2>
+
+<p>Let's take a quick look through the code.</p>
+
+<h3>
+<a id="routing" class="anchor" href="#routing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Routing</h3>
+
+<p>The application consists of two pages: a home page (which we'll call "AddStudentData") that enables you to create a new StudentData document, and a second page (which we'll call "EditStudentData") that enables you to edit a pre-existing StudentData document.</p>
+
+<p>Because there are two pages, it makes sense to use a router.  This application uses <a href="http://iron-meteor.github.io/iron-router/">Iron Router</a>.</p>
+
+<p>The routing code is in a single file: <a href="https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/lib/router/router.js">lib/router/router.js</a>:</p>
+
+<ul>
+<li><p>A "layout" template is specified to provide boilerplate Bootstrap code, found in <a href="https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/client/templates/application/layout.html">client/templates/application/layout.html</a>.</p></li>
+<li><p>When the application is first retrieved by a client, the router will subscribe to the StudentData collection. A <a href="https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/client/templates/application/loading.html">loading template</a> will be shown while the subscription runs, and this displays the spinner provided by <a href="https://atmospherejs.com/sacha/spin">sasha:spinner</a>.</p></li>
+<li><p>Two routes are defined: "/" which will display the AddStudentData template, and "/student/:_id" which will display the UpdateStudentData template.  Both templates are defined in <a href="https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/client/templates/studentdata/studentdata.html">client/templates/studentdata/studentdata.html</a>.</p></li>
+<li><p>When the client submits a URL with the /student route, the next part of the path should provide the docID for the student to be retrieved. (No error checking is done. <a href="https://www.discovermeteor.com/">Discover Meteor</a> has a nice tutorial on how to support error checking in Iron Router.)</p></li>
+</ul>
+
+<h3>
+<a id="the-studentdata-collection" class="anchor" href="#the-studentdata-collection" aria-hidden="true"><span class="octicon octicon-link"></span></a>The StudentData Collection</h3>
+
+<p>A primary component of form definition occurs in <a href="https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/lib/collections/StudentData.js">lib/collections/studentdata.js</a> which contains the code to define the StudentData collection, the Meteor Methods for adding and updating StudentData documents, and the schema definition for StudentData documents.</p>
+
+<p>For example, here is the schema definition for the "Level" field in a StudentData document:</p>
+
+<pre><code>  level: {
+    label: "Level",
+    type: String,
+    optional: false,
+    allowedValues: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
+    autoform: {
+      group: studentData,
+      type: 'select-radio-inline'
+    }
+  }
+</code></pre>
+
+<p>This schema definition indicates that:</p>
+
+<ul>
+<li>Level is a required field containing a String.</li>
+<li>Level has four allowed String values,</li>
+<li>AutoForm should display it inside a FieldSet with legend "StudentData"</li>
+<li>AutoForm should display it as an inline (horizontal) list of radio buttons.</li>
+</ul>
+
+<p>The schema thus specifies both structural (i.e. the type of allowable value) and presentation (i.e. what HTML form control should be used).</p>
+
+<p>Review the other field definitions to see how to specify other form components.</p>
+
+<h3>
+<a id="templates" class="anchor" href="#templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Templates</h3>
+
+<p>The schema specifies most of the information required by AutoForm for this example application.   The two templates in  <a href="https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/client/templates/studentdata/studentdata.html">client/templates/studentdata/studentdata.html</a> are quite simple. Here is one:</p>
+
+<pre><code>&lt;template name="AddStudentData"&gt;
+  &lt;div class="well"&gt;
+    {{&gt; quickForm
+    collection="StudentData"
+    template="bootstrap3-horizontal"
+    label-class="col-sm-2"
+    input-col-class="col-sm-10"
+
+    id="AddStudentDataForm"
+    type="method"
+    meteormethod="addStudentData"
+    resetOnSuccess=true}}
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+
+<p>For this application, we can use <a href="https://github.com/aldeed/meteor-autoform#quickform">quickForm</a>, the most simple of AutoForm's options. We specify the Collection (which provides AutoForm with access to the Schema), and some Twitter Bootstrap layout information (a horizontal form layout and column width information). We indicate that we want to use Meteor methods and which method to invoke.</p>
+
+<h3>
+<a id="issues-form-help-text" class="anchor" href="#issues-form-help-text" aria-hidden="true"><span class="octicon octicon-link"></span></a>Issues: Form Help Text</h3>
+
+<p>With one exception, the implementation of this form in Meteor using AutoForm was quite straightforward.</p>
+
+<p>The exception is this: I originally hoped to replicate the following form from play-example-form:</p>
+
+<p><img src="https://raw.githubusercontent.com/ics-software-engineering/play-example-form/master/doc/play-example-form-homepage.png" alt=""></p>
+
+<p>Unlike the Meteor version, play-example-form provides <a href="http://getbootstrap.com/css/#forms-help-text">help text</a> (the grey text underneath each form control documenting how the user should respond).</p>
+
+<p>As far as I can tell, providing help text in AutoForm is not possible with <a href="https://github.com/aldeed/meteor-autoform#quickform">quickForm component</a>, nor is it even possible with the <a href="https://github.com/aldeed/meteor-autoform#autoform-1">autoForm component</a>, which provides fine-grained control over individual fields.</p>
+
+<p>Instead, in order to obtain this very common and highly useful UI element, you must apparently define a <a href="https://github.com/aldeed/meteor-autoform#theme-templates">theme template</a>, which will differ in only minor ways from the built-in one.</p>
+
+<p>For the novice user of AutoForm who requires help-text, a legitimate question becomes whether it is better to fork a predefined template and implement this feature, or just abandon AutoForm entirely and roll one's own form processor.</p>
+
+<p>I believe the AutoForm package significantly simplifies form development, and that it is a design oversight to require developers who merely wish to include form help text to learn an advanced AutoForm mechanism to achieve it (and then manually maintain their copy of the template as Bootstrap and AutoForm evolve over time.)   A much better solution is for the AutoForm developers to include a help-text option in the Schema that can be used by the predefined templates:</p>
+
+<pre><code>  level: {
+    label: "Level",
+    type: String,
+    optional: false,
+    allowedValues: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
+    autoform: {
+      group: studentData,
+      type: 'select-radio-inline',
+      help-text: 'Select your grade level. (required)'
+    }
+  }
+</code></pre>
+
+<p>With this simple enhancement, users requiring help text could enjoy the simplicity of the quickForm option.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Meteor-example-autoform maintained by <a href="https://github.com/ics-software-engineering">ics-software-engineering</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
