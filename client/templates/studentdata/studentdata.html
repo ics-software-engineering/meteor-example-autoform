@@ -1,0 +1,11 @@
+<template name="AddStudentData">
+  <div class="well">
+    {{> quickForm collection="StudentData" id="insertStudentDataForm" type="method" meteormethod="addStudentData" template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-10" resetOnSuccess=true}}
+  </div>
+</template>
+
+<template name="UpdateStudentData">
+  <div class="well">
+    {{> quickForm collection="StudentData" doc=this id="updateStudentDataForm" type="method-update" meteormethod="updateStudentData" template="bootstrap3-horizontal" label-class="col-sm-2" input-col-class="col-sm-10" resetOnSuccess=true buttonContent="Update"}}
+  </div>
+</template>

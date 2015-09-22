@@ -1,0 +1,6 @@
+1. Would be good to illustrate editing as well as new data creation. Can I do that without having a router?
+
+2. Could this example also provide a minimal router example.
+
+3. What about testing. Time to show velocity?
+
