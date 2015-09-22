@@ -12,7 +12,7 @@ I previously wrote a similar application called [play-example-form](http://ics-s
 
 ## Basic usage
 
-Download the application and type `meteor`, then display [http://localhost:3000] to bring up a window similar to the above.
+Download the application and type `meteor`, then display [http://localhost:3000](http://localhost:3000) to bring up a window similar to the above.
 
 The application consists of two pages: the home page that enables the form and enables you to create new StudentData documents, and a second page that allows you to edit a pre-existing StudentData document.  To use this second page, open up the browser console and submit a new StudentData instance. The form will be reset, and you should see the docID printed out to the console:
 
@@ -96,9 +96,39 @@ The schema specifies most of the information required by AutoForm for this examp
 
 For this application, we can use [quickForm](https://github.com/aldeed/meteor-autoform#quickform), the most simple of AutoForm's options. We specify the Collection (which provides AutoForm with access to the Schema), and some Twitter Bootstrap layout information (a horizontal form layout and column width information). We indicate that we want to use Meteor methods and which method to invoke.
 
-### Issues
+### Issues: Form Help Text
 
-Overall,
+With one exception, the implementation of this form in Meteor using AutoForm was quite straightforward.
+
+The exception is this: I originally hoped to replicate the form in play-example-form:
+
+![](https://raw.githubusercontent.com/ics-software-engineering/play-example-form/master/doc/play-example-form-homepage.png)
+
+Unlike the Meteor version, this form contains [help text](http://getbootstrap.com/css/#forms-help-text).
+
+As far as I can tell, providing form help text in AutoForm is not possible with [quickForm component](https://github.com/aldeed/meteor-autoform#quickform), nor is it even possible with the [autoForm compoent](https://github.com/aldeed/meteor-autoform#autoform-1), which provides fine-grained control over individual fields.
+
+Instead, in order to obtain this common and highly useful feature, you must apparently define a [theme template](https://github.com/aldeed/meteor-autoform#theme-templates), which will differ in only minor ways from the built-in one.
+
+For the novice user of AutoForm, the question at this point becomes whether it is better to fork a predefined template just to get this basic feature, or just abandon AutoForm entirely and roll your own form processor.
+
+I believe the AutoForm package significantly simplifies form development, and that it is a design oversight to require developers who merely wish to include form help text to have to dig so deeply into AutoForm internals to achieve it.   A much better solution is for the AutoForm developers to include a help-text option in the Schema that can be used by the predefined templates:
+
+```
+  level: {
+    label: "Level",
+    type: String,
+    optional: false,
+    allowedValues: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
+    autoform: {
+      group: studentData,
+      type: 'select-radio-inline',
+      help-text: 'Indicate your year in the degree program. (Required)'
+    }
+  }
+```
+
+With this simple change, users could continue to use the quickForm option. 
 
 
 
