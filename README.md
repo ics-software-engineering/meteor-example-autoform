@@ -1,5 +1,3 @@
-# meteor-example-autoform
-
 ![](https://raw.githubusercontent.com/ics-software-engineering/meteor-example-autoform/master/doc/meteor-example-autoform.png)
 
 Meteor-example-autoform is a [Meteor](http://meteor.com) application that provides a simple implementation of an HTML form using the [AutoForm plugin](https://github.com/aldeed/meteor-autoform) along with [Twitter Bootstrap](http://getbootstrap.com/).
