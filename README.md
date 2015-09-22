@@ -12,9 +12,9 @@ I previously wrote a similar application called [play-example-form](http://ics-s
 
 ## Basic usage
 
-Download the application and type `meteor`, then display http://localhost:3000 to bring up a window similar to the above.
+Download the application and type `meteor`, then display [http://localhost:3000] to bring up a window similar to the above.
 
-The application consists of two pages: the home page that enables the form and enables you to create new StudentData documents, and a second page that allows you to edit a pre-existing StudentData document.  To use this second page, open up the browser console and submit a new StudentData instance. You should see the docID printed out to the console:
+The application consists of two pages: the home page that enables the form and enables you to create new StudentData documents, and a second page that allows you to edit a pre-existing StudentData document.  To use this second page, open up the browser console and submit a new StudentData instance. The form will be reset, and you should see the docID printed out to the console:
 
 ![](https://raw.githubusercontent.com/ics-software-engineering/meteor-example-autoform/master/doc/meteor-example-autoform-submit.png)
 
@@ -45,6 +45,61 @@ The routing code is in a single file: [lib/router/router.js](https://github.com/
   * When the client submits a URL with the /student route, the next part of the path should provide the docID for the student to be retrieved. (No error checking is done. [Discover Meteor](https://www.discovermeteor.com/) has a nice tutorial on how to support error checking in Iron Router.)
 
 ### The StudentData Collection
+
+A primary component of form definition occurs in [lib/collections/studentdata.js](https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/lib/collections/StudentData.js) which contains the code to define the StudentData collection, the Meteor Methods for adding and updating StudentData documents, and the schema definition for StudentData documents.
+
+For example, here is the schema definition for the "Level" field in a StudentData document:
+
+```
+  level: {
+    label: "Level",
+    type: String,
+    optional: false,
+    allowedValues: ['Freshman', 'Sophomore', 'Junior', 'Senior'],
+    autoform: {
+      group: studentData,
+      type: 'select-radio-inline'
+    }
+  }
+  ```
+This schema definition indicates that:
+
+   * Level is a required field containing a String.
+   * Level has four allowed String values,
+   * AutoForm should display it inside a FieldSet with legend "StudentData"
+   * AutoForm should display it as an inline (horizontal) list of radio buttons.
+
+The schema thus specifies both structural (i.e. the type of allowable value) and presentation (i.e. what HTML form control should be used).
+
+Review the other field definitions to see how to specify other form components.
+
+### Templates
+
+The schema specifies most of the information required by AutoForm for this example application.   The two templates in  [client/templates/studentdata/studentdata.html](https://github.com/ics-software-engineering/meteor-example-autoform/blob/master/client/templates/studentdata/studentdata.html) are quite simple. Here is one:
+
+```
+<template name="AddStudentData">
+  <div class="well">
+    {{> quickForm
+    collection="StudentData"
+    template="bootstrap3-horizontal"
+    label-class="col-sm-2"
+    input-col-class="col-sm-10"
+
+    id="AddStudentDataForm"
+    type="method"
+    meteormethod="addStudentData"
+    resetOnSuccess=true}}
+  </div>
+</template>
+```
+
+For this application, we can use [quickForm](https://github.com/aldeed/meteor-autoform#quickform), the most simple of AutoForm's options. We specify the Collection (which provides AutoForm with access to the Schema), and some Twitter Bootstrap layout information (a horizontal form layout and column width information). We indicate that we want to use Meteor methods and which method to invoke.
+
+### Issues
+
+Overall,
+
 
 
 
