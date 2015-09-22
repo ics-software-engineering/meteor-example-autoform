@@ -94,6 +94,13 @@ The schema specifies most of the information required by AutoForm for this examp
 
 For this application, we can use [quickForm](https://github.com/aldeed/meteor-autoform#quickform), the most simple of AutoForm's options. We specify the Collection (which provides AutoForm with access to the Schema), and some Twitter Bootstrap layout information (a horizontal form layout and column width information). We indicate that we want to use Meteor methods and which method to invoke.
 
+### Screencast
+
+Click the image below to watch a 10 minute walkthrough of this system. 
+
+[<img src="https://raw.github.com/ics-software-engineering/play-example-form/master/doc/play-example-form-screencast.png" width="400">](http://www.youtube.com/watch?v=247H9NVpMME)
+
+
 ### Issues: Form Help Text
 
 With one exception, the implementation of this form in Meteor using AutoForm was quite straightforward.
