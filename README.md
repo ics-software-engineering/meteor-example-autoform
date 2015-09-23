@@ -26,6 +26,21 @@ One way to test your understanding of this code is to clone this repo and augmen
 
 Let's take a quick look through the code.
 
+### Packages
+
+Here's the output of `meteor list` as of the time of writing:
+
+```
+aldeed:autoform     5.5.1  Easily create forms with automatic insert and update, and automatic reactive validation.
+aldeed:collection2  2.5.0  Automatic validation of insert and update operations on the client and server.
+iron:router         1.0.9  Routing specifically designed for Meteor
+meteor-platform     1.2.2* Include a standard set of Meteor packages in your app
+sacha:spin          2.3.1  Simple spinner package for Meteor
+twbs:bootstrap      3.3.5  The most popular front-end framework for developing responsive, mobile first projects on the web.
+```
+
+AutoForm and Collection2 the two packages you want for forms. Iron Router does routing.  Bootstrap provides the CSS framework.  The Spin package is unimportant for this tutorial; it just provides a spinner widget while the subscription is being completed.
+
 ### Routing
 
 The application consists of two pages: a home page (which we'll call "AddStudentData") that enables you to create a new StudentData document, and a second page (which we'll call "EditStudentData") that enables you to edit a pre-existing StudentData document.
