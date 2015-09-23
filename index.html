@@ -4,11 +4,11 @@
   <head>
     <meta charset='utf-8'>
     <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <meta name="description" content="Meteor-example-autoform : Simple Meteor app illustrating AutoForm and Bootstrap">
+    <meta name="description" content="meteor-example-autoform : Simple Meteor app illustrating AutoForm and Bootstrap">
 
     <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
 
-    <title>Meteor-example-autoform</title>
+    <title>meteor-example-autoform</title>
   </head>
 
   <body>
@@ -18,7 +18,7 @@
         <header class="inner">
           <a id="forkme_banner" href="https://github.com/ics-software-engineering/meteor-example-autoform">View on GitHub</a>
 
-          <h1 id="project_title">Meteor-example-autoform</h1>
+          <h1 id="project_title">meteor-example-autoform</h1>
           <h2 id="project_tagline">Simple Meteor app illustrating AutoForm and Bootstrap</h2>
 
             <section id="downloads">
@@ -60,6 +60,21 @@
 <a id="walkthough" class="anchor" href="#walkthough" aria-hidden="true"><span class="octicon octicon-link"></span></a>Walkthough</h2>
 
 <p>Let's take a quick look through the code.</p>
+
+<h3>
+<a id="packages" class="anchor" href="#packages" aria-hidden="true"><span class="octicon octicon-link"></span></a>Packages</h3>
+
+<p>Here's the output of <code>meteor list</code> as of the time of writing:</p>
+
+<pre><code>aldeed:autoform     5.5.1  Easily create forms with automatic insert and update, and automatic reactive validation.
+aldeed:collection2  2.5.0  Automatic validation of insert and update operations on the client and server.
+iron:router         1.0.9  Routing specifically designed for Meteor
+meteor-platform     1.2.2* Include a standard set of Meteor packages in your app
+sacha:spin          2.3.1  Simple spinner package for Meteor
+twbs:bootstrap      3.3.5  The most popular front-end framework for developing responsive, mobile first projects on the web.
+</code></pre>
+
+<p>AutoForm and Collection2 the two packages you want for forms. Iron Router does routing.  Bootstrap provides the CSS framework.  The Spin package is unimportant for this tutorial; it just provides a spinner widget while the subscription is being completed.</p>
 
 <h3>
 <a id="routing" class="anchor" href="#routing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Routing</h3>
@@ -178,7 +193,7 @@
     <!-- FOOTER  -->
     <div id="footer_wrap" class="outer">
       <footer class="inner">
-        <p class="copyright">Meteor-example-autoform maintained by <a href="https://github.com/ics-software-engineering">ics-software-engineering</a></p>
+        <p class="copyright">meteor-example-autoform maintained by <a href="https://github.com/ics-software-engineering">ics-software-engineering</a></p>
         <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
       </footer>
     </div>
